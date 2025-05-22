@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle Entrenador</title>
+</head>
+<body>
+    <h1 th:text="${entrenador.nombre + ' ' + entrenador.apellido}"></h1>
+    
+    <!-- Debug de Thymeleaf -->
+    <div th:if="${entrenador == null}">
+        ERROR: El objeto entrenador es nulo
+    </div>
+    
+    <div th:if="${entrenador != null}">
+        <p>Edad: <span th:text="${entrenador.edad}"></span></p>
+        
+  
+    </div>
+</body>
+</html>
