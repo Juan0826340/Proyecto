@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${competicion.id} ? 'Editar Competición' : 'Nueva Competición'"></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 th:text="${competicion.id} ? 'Editar Competición' : 'Nueva Competición'"></h1>
+        <form th:action="@{/competiciones/guardar}" th:object="${competicion}" method="post">
+            <input type="hidden" th:field="*{id}">
+            
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" th:field="*{nombre}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Monto del Premio (USD)</label>
+                <input type="number" class="form-control" th:field="*{montoPremio}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Fecha de Inicio</label>
+                <input type="date" class="form-control" th:field="*{fechaInicio}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Fecha de Fin</label>
+                <input type="date" class="form-control" th:field="*{fechaFin}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Clubes Participantes</label>
+                <select multiple class="form-select" name="clubIds">
+                    <option th:each="club : ${clubes}"
+                            th:value="${club.id}"
+                            th:text="${club.nombre}"
+                            th:selected="${clubesSeleccionados != null && clubesSeleccionados.contains(club.id)}">
+                    </option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a th:href="@{/competiciones}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>

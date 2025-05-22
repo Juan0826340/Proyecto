@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${asociacion.nombre}"></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 th:text="${asociacion.nombre}"></h1>
+        <div class="card shadow">
+            <div class="card-body">
+                <h5 class="card-title">📋 Información de la Asociación</h5>
+                <p><strong>País:</strong> <span th:text="${asociacion.pais}"></span></p>
+                <p><strong>Presidente:</strong> <span th:text="${asociacion.presidente}"></span></p>
+                <p><strong>Siglas:</strong> <span th:text="${asociacion.siglas}"></span></p>
+
+                <!-- Sección de Clubes Asociados -->
+                <div class="mt-4">
+                    <h5>🏟️ Clubes Afiliados</h5>
+                    <div th:if="${!asociacion.clubes.isEmpty()}">
+                        <ul class="list-group">
+                            <li th:each="club : ${asociacion.clubes}" 
+                                class="list-group-item d-flex justify-content-between align-items-center">
+                                <span th:text="${club.nombre}"></span>
+                                <a th:href="@{/clubes/{id}(id=${club.id})}" 
+                                   class="btn btn-sm btn-outline-primary">Ver Detalle</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div th:if="${asociacion.clubes.isEmpty()}" class="alert alert-warning">
+                        No hay clubes registrados en esta asociación.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a th:href="@{/asociaciones}" class="btn btn-secondary mt-3">← Volver</a>
+    </div>
+</body>
+</html>
